@@ -8,7 +8,7 @@ const app = express();
 const PORT = 3000;
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://yourfrontenddomain.com"],
+  origin: ["http://localhost:5173", "https://limor-front.onrender.com"],
   methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
