@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const productRoutes = require("./products/routes/ProductRoutes");
 const insertInitialProducts = require("./products/InitialProducts");
+const path = require("path")
 
 const app = express();
 const PORT = 3000;
@@ -14,14 +15,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose
-  .connect("mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/")
+  .connect("mongodb://localhost:27017/LimorDahari")
   .then(() => {
     console.log("Connected to MongoDB");
-    insertInitialProducts();
   })
   .catch((err) => console.error("MongoDB connection error:", err));
 

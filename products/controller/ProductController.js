@@ -2,22 +2,25 @@ const Product = require('../models/Product');
 
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, imageUrl, inStock } = req.body;
+    const { name, description, price, inStock } = req.body;
+    const imagePath = req.file ? req.file.path : null;
 
     const product = new Product({
       name,
       description,
       price,
-      imageUrl,
+      imageUrl: imagePath,
       inStock
     });
 
     await product.save();
-    res.status(201).json({ message: 'Product created successfully', product });
+
+    res.status(201).json({ message: "Product created successfully", product });
   } catch (err) {
-    res.status(400).json({ error: 'Failed to create product', details: err });
+    res.status(400).json({ error: "Failed to create product", details: err.message });
   }
 };
+
 
 const getAllProducts = async (req, res) => {
   try {
