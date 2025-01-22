@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const productRoutes = require("./products/routes/ProductRoutes");
-const insertInitialProducts = require("./products/InitialProducts");
 const path = require("path")
 
 const app = express();
@@ -19,7 +18,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose
-  .connect("mongodb://localhost:27017/LimorDahari")
+  .connect("mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/?retryWrites=true&w=majority&appName=Limor")
   .then(() => {
     console.log("Connected to MongoDB");
   })
