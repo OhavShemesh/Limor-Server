@@ -5,7 +5,6 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, price, inStock, imageUrl } = req.body;
     const image = await Image.findOne({ imageName: imageUrl })
-    console.log(image);
 
     const imageId = image._id
 

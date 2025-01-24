@@ -22,8 +22,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose
-  //.connect("mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/?retryWrites=true&w=majority&appName=Limor")
-  .connect("mongodb://localhost:27017/LimorDahari")
+  .connect("mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/?retryWrites=true&w=majority&appName=Limor")
+  //.connect("mongodb://localhost:27017/LimorDahari")
   .then(() => {
     console.log("Connected to MongoDB");
   })
