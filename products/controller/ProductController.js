@@ -6,7 +6,7 @@ const createProduct = async (req, res) => {
     const { name, description, price, inStock, imageUrl } = req.body;
     const image = await Image.findOne({ imageName: imageUrl })
     console.log(image);
-    
+
     const imageId = image._id
 
     const product = new Product({
@@ -28,7 +28,6 @@ const createProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    console.log("trying to get products");
     const products = await Product.find();
     res.status(200).json(products);
   } catch (err) {

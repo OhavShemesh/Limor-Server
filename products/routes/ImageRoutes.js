@@ -10,7 +10,6 @@ const upload = multer({ storage });
 // Route to handle image upload
 router.post('/upload-image', upload.single('image'), async (req, res) => {
     try {
-        console.log("hello");
 
         if (!req.file) {
             return res.status(400).send('No file uploaded.');
