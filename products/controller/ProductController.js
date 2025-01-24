@@ -1,15 +1,19 @@
 const Product = require('../models/Product');
+const Image = require("../models/Image")
 
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, inStock } = req.body;
-    const imagePath = req.file ? req.file.path : null;
+    const { name, description, price, inStock, imageUrl } = req.body;
+    const image = await Image.findOne({ imageName: imageUrl })
+    console.log(image);
+    
+    const imageId = image._id
 
     const product = new Product({
       name,
       description,
       price,
-      imageUrl: imagePath,
+      imageUrl: imageId,
       inStock
     });
 
