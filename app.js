@@ -39,6 +39,21 @@ const connectDB = async () => {
 
 connectDB();
 
+app.get("/env-info", (req, res) => {
+  const envInfo = {
+    environment: process.env.NODE_ENV || "development",
+    database:
+      process.env.NODE_ENV === "production"
+        ? "MongoDB Atlas (Production)"
+        : "Local MongoDB",
+  };
+
+  res.json(envInfo);
+});
+
+module.exports = app;
+
+
 app.use("/", imageRoutes)
 app.use("/products", productRoutes);
 
