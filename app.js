@@ -51,7 +51,11 @@ app.get("/env-info", (req, res) => {
   res.json(envInfo);
 });
 
-module.exports = app;
+app.use((err, req, res, next) => {
+  console.error("Error in production:", err);
+  res.status(500).json({ error: "Internal server error", details: err.message });
+});
+
 
 
 app.use("/", imageRoutes)
