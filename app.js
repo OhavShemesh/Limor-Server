@@ -21,13 +21,23 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-mongoose
-  .connect("mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/?retryWrites=true&w=majority&appName=Limor")
-  //.connect("mongodb://localhost:27017/LimorDahari")
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => console.error("MongoDB connection error:", err));
+const connectDB = async () => {
+  try {
+    const dbUri =
+      process.env.NODE_ENV === "production"
+        ? "mongodb+srv://Limor:Limor2025@limor.elzex.mongodb.net/?retryWrites=true&w=majority&appName=Limor" // Production (Atlas)
+        : "mongodb://localhost:27017/LimorDahari"; // Development (Local)
+
+    await mongoose.connect(dbUri);
+
+    console.log(`Connected to MongoDB (${process.env.NODE_ENV || "development"})`);
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Exit process with failure
+  }
+};
+
+connectDB();
 
 app.use("/", imageRoutes)
 app.use("/products", productRoutes);

@@ -51,5 +51,19 @@ router.get("/get-image/:id", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+router.delete("/delete-all-images", async (req, res) => {
+    try {
+        console.log("hello");
 
+        const allImages = await Image.find()
+        for (let image of allImages) {
+            await Image.findByIdAndDelete(image._id)
+        }
+
+
+    } catch (err) {
+        console.log(err);
+
+    }
+})
 module.exports = router;
