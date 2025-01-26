@@ -5,8 +5,10 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, price, inStock, imageUrl } = req.body;
     const image = await Image.findOne({ imageName: imageUrl })
+    console.log(image);
+    
     if (!image) {
-      return res.status(404).json({ error: 'Image not found' });
+      return res.status(404).json({ error: image });
 
     }
 
