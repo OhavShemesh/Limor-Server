@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const productRoutes = require("./products/routes/ProductRoutes");
 const imageRoutes = require("./products/routes/ImageRoutes")
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const { saveImageToDatabase } = require("./products/controller/ImageController");
 
 const app = express();
 const PORT = 3000;
