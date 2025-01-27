@@ -23,6 +23,7 @@ const uploadImage = async (req, res) => {
 };
 const getImageById = async (req, res) => {
     try {
+
         const { id } = req.params;
 
         const image = await Image.findById(id);
@@ -45,7 +46,6 @@ const getImageById = async (req, res) => {
 };
 const deleteAllImages = async (req, res) => {
     try {
-        console.log("hello");
 
         // Find all images and delete them
         const allImages = await Image.find();

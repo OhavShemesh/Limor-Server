@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId()
+  },
   name: {
     type: String,
     required: true,
@@ -26,8 +30,6 @@ const productSchema = new mongoose.Schema({
   }
 });
 
-
 const Product = mongoose.model('Product', productSchema);
-
 
 module.exports = Product;

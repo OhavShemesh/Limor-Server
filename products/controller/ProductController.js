@@ -52,11 +52,38 @@ const getProductById = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!product) {
+    const { id } = req.params;
+    console.log("id", id);
+
+    const { name, description, price, inStock, imageUrl } = req.body;
+    console.log("name", name, "description", description, "price", price, "inStock", inStock, "imageUrl", imageUrl);
+
+    // Find the image by URL
+    let image = await Image.findOne({ imageName: imageUrl });
+    if (!image) {
+      return res.status(404).json({ error: "Image not found" });
+    }
+
+    const imageId = image._id;
+
+    // Use findByIdAndUpdate to update the existing product
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id, // The product to update
+      {
+        name,
+        description,
+        price,
+        imageUrl: imageId,
+        inStock
+      },
+      { new: true } // This ensures the updated product is returned
+    );
+
+    if (!updatedProduct) {
       return res.status(404).json({ error: 'Product not found' });
     }
-    res.status(200).json({ message: 'Product updated successfully', product });
+
+    res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
   } catch (err) {
     res.status(400).json({ error: 'Failed to update product', details: err });
   }
@@ -112,6 +139,8 @@ const addToStock = async (req, res) => {
 
   }
 }
+
+
 
 module.exports = {
   createProduct,

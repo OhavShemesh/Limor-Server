@@ -10,5 +10,6 @@ router.get("/:id", ProductController.getProductById);
 router.delete("/:id", ProductController.deleteProduct);
 router.patch("/determineStock/:id", ProductController.determineStock);
 router.patch("/addToStock/:id", ProductController.addToStock);
+router.put("/updateProduct/:id", ProductController.updateProduct);
 
 module.exports = router;
