@@ -74,7 +74,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-const updateStock = async (req, res) => {
+const determineStock = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
     const newStock = req.body.newStock
@@ -92,6 +92,26 @@ const updateStock = async (req, res) => {
 
   }
 }
+const addToStock = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id)
+    const stockAddition = req.body.stockAddition
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    if (!stockAddition) {
+      return res.status(404).json({ error: "Stock cann't be nothing" });
+    }
+    const newStock = Number(product.inStock) + Number(stockAddition);
+
+    product.inStock = newStock
+    product.save()
+    res.status(200).json({ message: 'Product stock updated successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update product stock', details: err });
+
+  }
+}
 
 module.exports = {
   createProduct,
@@ -99,5 +119,6 @@ module.exports = {
   getProductById,
   updateProduct,
   deleteProduct,
-  updateStock
+  determineStock,
+  addToStock
 }
