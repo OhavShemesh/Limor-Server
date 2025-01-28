@@ -40,6 +40,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
+
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -53,12 +54,9 @@ const getProductById = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
 
     const { name, description, price, inStock, imageUrl } = req.body;
-    console.log("name", name, "description", description, "price", price, "inStock", inStock, "imageUrl", imageUrl);
 
-    // Find the image by URL
     let image = await Image.findOne({ imageName: imageUrl });
     if (!image) {
       return res.status(404).json({ error: "Image not found" });
@@ -66,9 +64,8 @@ const updateProduct = async (req, res) => {
 
     const imageId = image._id;
 
-    // Use findByIdAndUpdate to update the existing product
     const updatedProduct = await Product.findByIdAndUpdate(
-      id, // The product to update
+      id,
       {
         name,
         description,
