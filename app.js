@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const productRoutes = require("./products/routes/ProductRoutes");
 const imageRoutes = require("./products/routes/ImageRoutes")
+const paymentRoutes = require("./payment/routes/PaymentRouter")
 
 const app = express();
 const PORT = 3000;
@@ -56,6 +57,7 @@ app.use((err, req, res, next) => {
 
 app.use("/", imageRoutes)
 app.use("/products", productRoutes);
+app.use("/payment", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
